@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns.ths="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>search Appointments</title>
+    <style media="screen">
+        /* Basic styling for the table */
+        body{
+            color: #FFF;
+            background-color:#141e30;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-family: Arial, sans-serif;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: rgba(0,0,0,.5);
+            font-weight: bold;
+        }
+        /* Search input styling */
+        #search-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        #search {
+
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right=10
+        }
+
+
+        /* Search button styling */
+        #searchButton,#deleteButton,#updateButton {
+            padding: 10px;
+            background-color: rgba(0,0,0,.5);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #deleteButton{
+            background-color: red; color: white;}
+        #updateButton{
+            background-color: blue; color: white;
+        }
+
+
+        /* Highlight search results */
+        .highlight {
+            background-color: #ffff99;
+        }
+        .searchType-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-direction: row;
+            padding-top: 10px;
+            padding-bottom: 20px;
+        }
+
+        .searchType-container label {
+            font-weight: bold;
+            color: white;
+        }
+
+        .searchType-container input[type="radio"] {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid white;
+            border-radius: 50%;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+
+        .searchType-container input[type="radio"]:checked {
+            background-color: white;
+        }
+        .searchRadio-container-son {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            overflow-x: auto; /* Allow horizontal scrolling if needed */
+            white-space: nowrap; /* Prevent wrapping of content */
+        }
+    </style>
+
+</head>
+<body>
+<form th:action="@{/employeeDashboard/searchAppointments}" method="post" th:object="${searchType}">
+    <div id="search-container">
+        <input type="text" id="search" name="search" placeholder="Search by name or ID">
+        <button type="submit" id="searchButton" >Search</button>
+    </div>
+
+    <div class="searchType-container" >
+        <div class="searchRadio-container-son" th:each="s : ${searchRadio}">
+            <input type="radio" id="searchByName" name="searchType" th:value="${s}">
+            <label for="searchByName" th:text="${s}"></label>
+        </div>
+    </div>
+</form>
+
+
+
+<table id="DoctorTable">
+    <thead>
+    <thead>
+    <tr>
+        <th>Appointment ID</th>
+        <th>Patient Name </th>
+        <th>Doctor Name</th>
+        <th>Paid</th>
+        <th>Not Paid</th>
+        <th>Date</th>
+        <th>Description</th>
+        <th style="text-align: center;">Action</th>
+
+
+    </tr>
+    </thead>
+    <tr th:each="appointment : ${appointments}">
+        <td th:text="${appointment.appointmentId}"></td>
+        <td th:text="${appointment.patientName}"></td>
+        <td th:text="${appointment.doctorName}"></td>
+        <td th:text="${appointment.paid}"></td>
+        <td th:text="${appointment.notPaid}"></td>
+        <td th:text="${appointment.date}"></td>
+        <td th:text="${appointment.description}"></td>
+        <td style="margin: 10px; justify-content: space-between;">
+            <button  id="updateButton"
+                     style="background-color: blue; color: white; text-decoration: none; border: none; "  th:onclick="'update(' + ${appointment.appointmentId} + ')'">
+                Update
+            </button>
+
+            <button id="deleteButton" style="text-decoration: none; border: none;" th:onclick="'confirmDelete(' + ${appointment.appointmentId} + ')'" >
+                Delete
+            </button>
+
+        </td>
+    </tr>
+    </thead>
+
+</table>
+<script>
+    function confirmDelete(id) {
+        const confirmed = confirm("Are you sure you want to delete?");
+        if (confirmed) {
+            window.location.href = '/employeeDashboard/appointment/confirmAppointmentDeleting?id=' + id;
+            alert("Record deleted successfully!");
+        }
+    }
+    function update(id){
+        window.location.href = '/employeeDashboard/updateAppointment?id=' + id;
+    }
+</script>
+</body>
+</html>

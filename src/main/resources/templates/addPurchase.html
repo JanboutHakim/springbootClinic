@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns.ths="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <title>Add Bill</title>
+    <style media="screen">
+        body {
+            color: #FFF;
+            background-color:#141e30;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .signup-container {
+            background-color: rgba(0,0,0,.5);
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 600px; /* Adjust width as needed */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .signup-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .signup-form {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            width: 45%; /* Adjust width as needed */
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input, .form-group select {
+            width: calc(100% - 10px);
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .form-group select {
+            width: 100%;
+        }
+
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+        a {
+            color: black;
+            text-decoration: none; /* Remove underline */
+        }
+
+        a:hover {
+            color:#0056b3 ; /* Darken color on hover */
+        }
+    </style>
+</head>
+<body>
+
+<div class="signup-container">
+    <h2 class="signup-header">Add Bill</h2>
+    <div>
+        <h3 class="signup-header" th:text="'Patient ID: '+${ID}"></h3>
+    </div>
+
+    <form class="signup-form" th:action="@{'/employeeDashboard/addPurchase?id=' + ${ID}}" method="post" th:object="${patientPurchase}">
+
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description" th:field="*{item.description}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="first-name">Paid:</label>
+            <input type="number" id="first-name" name="moneyPaid" th:field="*{item.moneyPaid}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="last-name">Rest:</label>
+            <input type="number" id="last-name" name="notPaid" th:field="*{item.notPaid}" required>
+        </div>
+        <div class="form-group">
+            <label for="purchaseDate">Date of Birth:</label>
+            <input style="" type="date" id="purchaseDate" name="purchaseDate" th:field="*{item.purchaseDate}" required>
+        </div>
+
+        <div class="form-group"  style="padding-top: 25px ;width: 100% ">
+            <button type="submit"  th:onclick="'addItem(' + ${ID} + ')'" >Add Bill</button>
+        </div>
+        <!-- Display error message if login fails -->
+        <div th:if="${error}">
+            <p style="color: red;">The username already exist</p>
+        </div>
+    </form>
+
+</div>
+<script>
+    function addItem(id){
+        window.location.href='/employeeDashboard/addPurchase?id=' + id;
+    }
+</script>
+</body>
+</html>

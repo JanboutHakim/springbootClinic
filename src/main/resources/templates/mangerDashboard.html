@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns.ths="http://www.thymeleaf.org"
+      lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <style media="screen">
+    body {
+      color: #FFF;
+      background-color:#141e30; /* Whiteblue color */
+
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .box {
+
+      height: 250px;
+      width:500px;
+      background-color: rgba(0,0,0,.5); /* White color */
+      margin: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .box:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Style for the logout button */
+    button {
+      background-color: #007bff;
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="box" onclick="location.href='/mangerDashboard/addDoctor'">
+      <h2>Add Doctor</h2>
+    </div>
+    <div class="box"  onclick="location.href='/mangerDashboard/addemploye'">
+      <h2>Add Employee</h2>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="box" onclick="location.href='/mangerDashboard/searchDoctor'">
+      <h2>Search Doctor</h2>
+    </div>
+    <div class="box" onclick="location.href='/mangerDashboard/searchEmployee'">
+      <h2>Search Employee</h2>
+    </div>
+
+
+  </div>
+  <button onclick="location.href='/my-logout'">Logout</button>
+</div>
+</body>
+</html>

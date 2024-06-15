@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns.ths="http://www.thymeleaf.org"
+      lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>search Appointments</title>
+  <style media="screen">
+    /* Basic styling for the table */
+    body{
+      color: #FFF;
+      background-color:#141e30;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-family: Arial, sans-serif;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: rgba(0,0,0,.5);
+      font-weight: bold;
+    }
+
+    .searchType-container label {
+      font-weight: bold;
+      color: white;
+    }
+
+    .searchType-container input[type="radio"] {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid white;
+      border-radius: 50%;
+      margin-right: 5px;
+      cursor: pointer;
+    }
+
+    .searchType-container input[type="radio"]:checked {
+      background-color: white;
+    }
+    .searchRadio-container-son {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      overflow-x: auto; /* Allow horizontal scrolling if needed */
+      white-space: nowrap; /* Prevent wrapping of content */
+    }
+  </style>
+
+</head>
+<body>
+<h1 th:text="'Patient Name: '+${name}"></h1>
+<table id="DoctorTable">
+  <thead>
+  <thead>
+  <tr>
+    <th>Description</th>
+    <th>Date </th>
+    <th>Paid</th>
+    <th>Rest</th>
+
+
+
+  </tr>
+  </thead>
+  <tr th:each="item : ${PatientItems}">
+    <td th:text="${item.description}"></td>
+    <td th:text="${item.purchaseDate}"></td>
+    <td th:text="${item.moneyPaid}"></td>
+    <td th:text="${item.notPaid}"></td>
+  </tr>
+  </thead>
+
+</table>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns.ths="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <title>Login Page</title>
+    <style media="screen">
+        body {
+            color: #FFF;
+            background-color:#141e30;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .signup-container {
+            background-color: rgba(0,0,0,.5);
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 600px; /* Adjust width as needed */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .signup-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .signup-form {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            width: 45%; /* Adjust width as needed */
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input, .form-group select {
+            width: calc(100% - 10px);
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .form-group select {
+            width: 100%;
+        }
+
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+        a {
+            color: black;
+            text-decoration: none; /* Remove underline */
+        }
+
+        a:hover {
+            color:#0056b3 ; /* Darken color on hover */
+        }
+    </style>
+</head>
+<body>
+
+<div class="signup-container">
+    <h2 class="signup-header">New Appointments</h2>
+    <form class="signup-form" th:action="@{/employeeDashboard/confirmUpdateAppointment(id=${appointments.appointmentId})}" method="post" th:object="${appointments}">
+        <div class="form-group">
+            <label for="signup_username">Patient ID:</label>
+            <input type="text" id="signup_username" name="patientID" th:field="*{patient}" th:value="${appointments.patient}" required>
+        </div>
+        <div class="form-group">
+            <label for="text_doctor_name">Doctor ID:</label>
+            <input type="text" id="text_doctor_name" name="doctorID" th:field="*{doctor}" th:value="${appointments.doctor}"  required>
+        </div>
+
+        <div class="form-group">
+            <label for="date">Date of Birth:</label>
+            <input type="date" id="date" name="date" th:field="*{date}" th:value="${appointments.date}"  required>
+        </div>
+
+        <div class="form-group">
+            <label for="paid">Paid</label>
+            <input type="text" id="paid" name="paid" th:field="*{paid}" th:value="${appointments.paid}" >
+        </div>
+        <div class="form-group">
+            <label for="notPaid">Not Paid</label>
+            <input type="text" id="notPaid" name="notPaid" th:field="*{notPaid}" th:value="${appointments.notPaid}" >
+        </div>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description" th:field="*{description}" th:value="${appointments.description}" >
+        </div>
+        <div class="form-group" style="width: 100%;">
+            <button type="submit">update Appointments</button>
+        </div>
+        <!-- Display error message if login fails -->
+        <div th:if="${error}">
+            <p style="color: red;">The username already exist</p>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
